@@ -12,6 +12,8 @@ end
 
 lexer = SimpleCsvPaser::Lexer.new IO.read(ARGV[0])
 parser = SimpleCsvPaser::Parser.new lexer
-parser.parse
+analyzer = SimpleCsvPaser::SemanticAnalyzer.new parser.parse
+
+analyzer.analyze
 
 puts "Finish parsing #{ARGV[0]} successfully."
