@@ -35,7 +35,7 @@ module SimpleCsvPaser
     end
 
     def semantic_error(message, line)
-      fail "Semantic error in line:#{line}: #{message}."
+      fail "Semantic error in line:#{line}: #{message}"
     end
   end
 end
