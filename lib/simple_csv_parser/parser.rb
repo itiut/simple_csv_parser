@@ -93,7 +93,7 @@ module SimpleCsvPaser
     end
 
     def syntactic_error(token)
-      fail "Syntactic error in line:#{token.row}, column:#{token.column}"
+      fail "Syntactic error in line:#{token.row + 1}, column:#{token.column + 1}"
     end
   end
 end

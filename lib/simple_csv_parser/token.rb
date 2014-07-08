@@ -21,7 +21,7 @@ module SimpleCsvPaser
         m = pattern.match(data_substring)
         return Token.new(type, m[0], row, column) if m
       end
-      fail "Lexical error in line:#{row} column:#{column}"
+      fail "Lexical error in line:#{row + 1} column:#{column + 1}"
     end
 
     def self.eof(row = -1, column = -1)
