@@ -63,7 +63,10 @@ module SimpleCsvPaser
           next
         end
 
-        generated_symbols = RULES[PARSE_TABLE[stack.pop][token.type]]
+        rule_index = PARSE_TABLE[stack.pop][token.type]
+        parse_error(token) unless rule_index
+
+        generated_symbols = RULES[rule_index]
         generated_symbols.reverse.each do |symbol|
           stack << symbol
         end
