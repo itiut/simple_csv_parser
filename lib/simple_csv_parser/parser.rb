@@ -80,7 +80,7 @@ module SimpleCsvPaser
     end
 
     def parse_error(token)
-      fail 'parse error'
+      fail "Syntactic error in line:#{token.row}, column:#{token.column}"
     end
   end
 end
