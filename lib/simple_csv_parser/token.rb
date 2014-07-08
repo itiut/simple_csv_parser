@@ -1,0 +1,28 @@
+module SimpleCsvPaser
+  class Token
+    attr_accessor :type, :text, :row, :column
+
+    def initialize(type, text, row, column)
+      @type, @text, @row, @column = type, text, row, column
+    end
+
+    PATTERNS = {
+      eof: /\A\Z/,
+      comma: /\A,/,
+      crlf: /\A\r\n/,
+      cr: /\A\r/,
+      lf: /\A\n/,
+      twodquote: /\A""/,
+      dquote: /\A"/,
+      textdata: /\A[ !#-+.-~-]+/
+    }
+
+    def self.create(data_substring, row = -1, column = -1)
+      PATTERNS.each do |type, pattern|
+        m = pattern.match(data_substring)
+        return Token.new(type, m[0], row, column) if m
+      end
+      fail 'Parse error'
+    end
+  end
+end
