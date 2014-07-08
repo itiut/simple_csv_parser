@@ -83,7 +83,7 @@ module SimpleCsvPaser
     private
 
     def terminal_symbol?(symbol)
-      PARSE_TABLE.keys.all? { |key| key != symbol }
+      !PARSE_TABLE.keys.include?(symbol)
     end
 
     def generate_symbols(symbol, token)
