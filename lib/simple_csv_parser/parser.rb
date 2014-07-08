@@ -57,14 +57,14 @@ module SimpleCsvPaser
         token = @lexer.peek(0)
 
         if terminal_symbol?(stack.last)
-          parse_error(token) unless stack.last == token.type
+          syntactic_error(token) unless stack.last == token.type
           stack.pop
           @lexer.read
           next
         end
 
         rule_index = PARSE_TABLE[stack.pop][token.type]
-        parse_error(token) unless rule_index
+        syntactic_error(token) unless rule_index
 
         generated_symbols = RULES[rule_index]
         generated_symbols.reverse.each do |symbol|
@@ -79,7 +79,7 @@ module SimpleCsvPaser
       PARSE_TABLE.keys.all? { |key| key != type }
     end
 
-    def parse_error(token)
+    def syntactic_error(token)
       fail "Syntactic error in line:#{token.row}, column:#{token.column}"
     end
   end
