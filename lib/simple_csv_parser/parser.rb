@@ -1,3 +1,5 @@
+require_relative 'ast_node'
+
 module SimpleCsvPaser
   class Parser
     RULES = [
@@ -52,31 +54,42 @@ module SimpleCsvPaser
     end
 
     def parse
-      stack = [:file0]
-      until stack.empty?
+      symbol_stack = [:file0]
+      root = ASTNode.new(symbol_stack.last)
+      node_stack = [root]
+
+      until symbol_stack.empty?
+        symbol = symbol_stack.last
         token = @lexer.peek(0)
 
-        if terminal_symbol?(stack.last)
-          syntactic_error(token) unless stack.last == token.type
-          stack.pop
-          @lexer.read
+        if terminal_symbol?(symbol)
+          syntactic_error(token) unless symbol == token.type
+          symbol_stack.pop
+          node_stack.pop.token = @lexer.read
           next
         end
 
-        rule_index = PARSE_TABLE[stack.pop][token.type]
-        syntactic_error(token) unless rule_index
+        generated_symbols = generate_symbols(symbol_stack.pop, token)
+        symbol_stack.concat generated_symbols.reverse.to_a
 
-        generated_symbols = RULES[rule_index]
-        generated_symbols.reverse.each do |symbol|
-          stack << symbol
-        end
+        child_nodes = generated_symbols.map { |sym| ASTNode.new(sym) }
+        node_stack.pop.children = child_nodes
+        node_stack.concat child_nodes.reverse.to_a
       end
+
+      root
     end
 
     private
 
-    def terminal_symbol?(type)
-      PARSE_TABLE.keys.all? { |key| key != type }
+    def terminal_symbol?(symbol)
+      PARSE_TABLE.keys.all? { |key| key != symbol }
+    end
+
+    def generate_symbols(symbol, token)
+      rule_index = PARSE_TABLE[symbol][token.type]
+      syntactic_error(token) unless rule_index
+      RULES[rule_index]
     end
 
     def syntactic_error(token)
