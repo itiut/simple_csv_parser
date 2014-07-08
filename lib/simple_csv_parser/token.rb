@@ -7,7 +7,6 @@ module SimpleCsvPaser
     end
 
     PATTERNS = {
-      eof: /\A\Z/,
       comma: /\A,/,
       crlf: /\A\r\n/,
       cr: /\A\r/,
@@ -23,6 +22,10 @@ module SimpleCsvPaser
         return Token.new(type, m[0], row, column) if m
       end
       fail 'Parse error'
+    end
+
+    def self.eof(row = -1, column = -1)
+      @eof ||= Token.new(:eof, '', row, column)
     end
   end
 end
