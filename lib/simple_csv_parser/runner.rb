@@ -18,13 +18,14 @@ module SimpleCsvPaser
         exit 1
       end
 
-      lexer = Lexer.new IO.read(@args[0])
+      csvfile = @args.first
+      lexer = Lexer.new IO.read(csvfile)
       parser = Parser.new lexer
       analyzer = SemanticAnalyzer.new parser.parse
 
       analyzer.analyze
 
-      puts "Finish parsing #{@args[0]} successfully."
+      puts "Finish parsing #{csvfile} successfully."
     end
   end
 end
