@@ -7,14 +7,14 @@ module SimpleCsvPaser
     def analyze
       fields_and_crlfs = select_and_flatten_types_by_dfs([:field, :crlf], @ast_root)
 
-      field_num = nil
+      number_of_fields = nil
       split_by_value(fields_and_crlfs, :crlf).each_with_index do |fields_in_record, i|
-        unless field_num
-          field_num = fields_in_record.size
+        unless number_of_fields
+          number_of_fields = fields_in_record.size
           next
         end
 
-        semantic_error('The number of fields is different', i + 1) unless field_num == fields_in_record.size
+        semantic_error('The number of fields is different', i + 1) unless number_of_fields == fields_in_record.size
       end
     end
 
