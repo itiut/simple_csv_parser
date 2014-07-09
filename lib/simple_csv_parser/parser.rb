@@ -4,7 +4,7 @@ module SimpleCsvPaser
   class Parser
     RULES = [
       # file0 ->
-      [:record0, :file1],           # 0
+      [:record0, :file1],          # 0
 
       # file1 ->
       [:crlf, :record0, :file1],   # 1
