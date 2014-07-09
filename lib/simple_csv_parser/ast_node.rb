@@ -1,5 +1,5 @@
 module SimpleCsvPaser
-  class ASTNode
+  class AstNode
     attr_accessor :type, :children, :token
 
     def initialize(type)

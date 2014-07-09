@@ -55,7 +55,7 @@ module SimpleCsvPaser
 
     def parse
       symbol_stack = [:file0]
-      root = ASTNode.new(symbol_stack.last)
+      root = AstNode.new(symbol_stack.last)
       node_stack = [root]
 
       until symbol_stack.empty?
@@ -72,7 +72,7 @@ module SimpleCsvPaser
         generated_symbols = generate_symbols(symbol_stack.pop, token)
         symbol_stack.concat generated_symbols.reverse.to_a
 
-        child_nodes = generated_symbols.map { |sym| ASTNode.new(sym) }
+        child_nodes = generated_symbols.map { |sym| AstNode.new(sym) }
         node_stack.pop.children = child_nodes
         node_stack.concat child_nodes.reverse.to_a
       end
