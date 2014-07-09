@@ -1,19 +1,4 @@
 #!/usr/bin/env ruby
 require 'simple_csv_parser'
 
-def usage
-  puts "Usage: #{$PROGRAM_NAME} csvfile"
-end
-
-if ARGV.size != 1
-  usage
-  exit 1
-end
-
-lexer = SimpleCsvPaser::Lexer.new IO.read(ARGV[0])
-parser = SimpleCsvPaser::Parser.new lexer
-analyzer = SimpleCsvPaser::SemanticAnalyzer.new parser.parse
-
-analyzer.analyze
-
-puts "Finish parsing #{ARGV[0]} successfully."
+SimpleCsvPaser::Runner.new(ARGV).run
