@@ -7,13 +7,13 @@ module SimpleCsvPaser
     end
 
     PATTERNS = {
-      comma: /\A,/,
-      crlf: /\A\r\n/,
-      cr: /\A\r/,
-      lf: /\A\n/,
+      comma:     /\A,/,
+      crlf:      /\A\r\n/,
+      cr:        /\A\r/,
+      lf:        /\A\n/,
       twodquote: /\A""/,
-      dquote: /\A"/,
-      textdata: /\A[ !#-+.-~-]+/
+      dquote:    /\A"/,
+      textdata:  /\A[ !#-+.-~-]+/
     }
 
     def self.create(data_substring, row = -1, column = -1)
