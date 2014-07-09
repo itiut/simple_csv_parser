@@ -1,6 +1,6 @@
 # SimpleCsvParser
 
-TODO: Write a gem description
+Simple CSV parser based on RFC 4180
 
 ## Installation
 
@@ -18,7 +18,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```console
+$ bundle exec bin/simple_csv_parser CSVFILE
+```
 
 ## Contributing
 
