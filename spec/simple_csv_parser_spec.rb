@@ -152,4 +152,21 @@ module SimpleCsvPaser
       end
     end
   end
+
+  describe Runner do
+    describe '#run' do
+      it 'should parse spec/def{1..7}.csv successfully' do
+        (1..7).map { |i| "#{__dir__}/def#{i}.csv" }.each do |csvfile|
+          Runner.new([csvfile]).run
+        end
+      end
+
+      it 'should raise error when parsing spec/ndef{1..3}.csv' do
+        (1..3).map { |i| "#{__dir__}/ndef#{i}.csv" }.each do |csvfile|
+          runner = Runner.new([csvfile])
+          expect(-> () { runner.run }).to raise_error
+        end
+      end
+    end
+  end
 end
