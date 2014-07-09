@@ -3,7 +3,7 @@ require_relative 'token'
 module SimpleCsvPaser
   class Lexer
     def initialize(data_string)
-      @data = data_string.chomp
+      @data = data_string.chomp "\r\n"
       @index = 0
       @row = 0
       @column = 0
