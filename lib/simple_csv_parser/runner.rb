@@ -9,7 +9,7 @@ module SimpleCsvPaser
     end
 
     def usage
-      puts "Usage: #{$PROGRAM_NAME} csvfile"
+      puts "Usage: #{$PROGRAM_NAME} CSVFILE"
     end
 
     def run
